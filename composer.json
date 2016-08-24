@@ -1,0 +1,15 @@
+{
+    "name": "alustau/laravel-api",
+    "description": "Library that helps you build your API",
+    "type": "library",
+    "require": {
+        "illuminate/contracts": "5.2.*"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "alustau",
+            "email": "denisalustau@gmail.com"
+        }
+    ]
+}
