@@ -31,10 +31,7 @@ class Handler implements ExceptionHandler
      * @param  \Exception  $e
      * @return void
      */
-    public function report(Exception $e)
-    {
-        parent::report($e);
-    }
+    public function report(Exception $e) {}
 
     /**
      * Render an exception into an HTTP response.
@@ -57,13 +54,6 @@ class Handler implements ExceptionHandler
             $response['message'] = Response::$statusTexts[Response::HTTP_NOT_FOUND];
             $response['status'] = Response::HTTP_NOT_FOUND;
         } 
-
-//        if ($this->isDebugMode()) {
-//            $response['debug'] = [
-//                'exception' => get_class($e),
-//                'trace' => $e->getTrace()
-//            ];
-//        }
 
         return response()->json(['error' => $response], $response['status']);
     }
