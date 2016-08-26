@@ -9,7 +9,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-class Handler extends ExceptionHandler
+class Handler implements ExceptionHandler
 {
     /**
      * A list of the exception types that should not be reported.
@@ -67,4 +67,10 @@ class Handler extends ExceptionHandler
 
         return response()->json(['error' => $response], $response['status']);
     }
+
+    public function renderForConsole($output, Exception $e)
+    {
+        
+    }
+
 }
