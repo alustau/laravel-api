@@ -1,6 +1,6 @@
 <?php
 
-namespace Alustau\API\Exception;
+namespace Alustau\API\Exceptions;
 
 use Exception;
 
