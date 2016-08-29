@@ -1,28 +1,16 @@
 <?php
-
 namespace Alustau\API\Exceptions;
 
 use Exception;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\Debug\ExceptionHandler;
-use Illuminate\Auth\Access\AuthorizationException;
+use Alustau\API\Exceptions\Exception as BaseException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class Handler implements ExceptionHandler
 {
-    /**
-     * A list of the exception types that should not be reported.
-     *
-     * @var array
-     */
-    protected $dontReport = [
-        AuthorizationException::class,
-        HttpException::class,
-        ModelNotFoundException::class,
-        ValidationException::class,
-    ];
-
     /**
      * Report or log an exception.
      *
@@ -44,7 +32,7 @@ class Handler implements ExceptionHandler
     {
         $response = [
             'message' => (string) $e->getMessage(),
-            'status' => 400
+            'status'  => 400
         ];
         
         if ($e instanceof HttpException) {
@@ -53,14 +41,13 @@ class Handler implements ExceptionHandler
         } else if ($e instanceof ModelNotFoundException) {
             $response['message'] = Response::$statusTexts[Response::HTTP_NOT_FOUND];
             $response['status'] = Response::HTTP_NOT_FOUND;
-        } 
-
-        return response()->json(['error' => $response], $response['status']);
-    }
-
-    public function renderForConsole($output, Exception $e)
-    {
+        } else if ($e instanceof BaseException) {
+            $response['message'] = $e->getMessage();
+            $response['status']  = $e->getStatusCode();
+        }
         
+        return (new JsonResponse(['error' => $response], $response['status']))->content();
     }
 
+    public function renderForConsole($output, Exception $e) {}
 }

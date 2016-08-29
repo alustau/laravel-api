@@ -2,24 +2,30 @@
 
 namespace Alustau\API\Exceptions;
 
-use Exception;
+use Alustau\API\Exceptions\Exception;
 
 /**
- * Description of DataNotFoundException
+ * DataNotFoundException
  *
  * @author alustau
  */
 class DataNotFoundException extends Exception
 {
      /**
-     * Create a new exception instance.
-     *
+      * Http code of exception
+      */
+     protected $statusCode = 404;
+     
+     /**
      * @param  string $message
-     * @param  \Illuminate\Http\Response  $response
      * @return void
      */
-    public function __construct($message, $response = null)
+    public function __construct($message = null)
     {
-        parent::__construct('The results of given data was not found', 404);
+        if (!$message) {
+            $message = 'The results of given data was not found';
+        }
+        
+        parent::__construct($message, $this->getStatusCode());
     }
 }

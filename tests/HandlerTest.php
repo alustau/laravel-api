@@ -2,13 +2,15 @@
 
 use PHPUnit\Framework\TestCase;
 use Alustau\API\Exceptions\Handler;
+use Alustau\API\Exceptions\DataNotFoundException;
+use Illuminate\Http\Request;
 
 class HandlerTest extends TestCase
 {
-    public function testEmpty()
+    public function testRenderJson()
     {
-        $handler = new Handler;
-        
-        $this->assertInstanceOf(Handler::class, $handler);
+        $this->assertJson(
+            (new Handler)->render(new Request, new DataNotFoundException)
+        );
     }
 }
