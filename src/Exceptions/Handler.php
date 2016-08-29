@@ -46,7 +46,7 @@ class Handler implements ExceptionHandler
             $response['status']  = $e->getStatusCode();
         }
         
-        return (new JsonResponse(['error' => $response], $response['status']))->content();
+        return new JsonResponse(['error' => $response], $response['status']);
     }
 
     public function renderForConsole($output, Exception $e) {}
