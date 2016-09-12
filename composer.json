@@ -4,8 +4,6 @@
     "type": "library",
     "require": {
         "illuminate/contracts": "5.3.*",
-        "illuminate/Validation": "5.3.*",
-        "illuminate/auth": "5.3.*",
         "illuminate/database": "5.3.*",
         "symfony/http-foundation": "3.0.*"
     },
