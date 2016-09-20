@@ -44,9 +44,13 @@ class Handler implements ExceptionHandler
         } else if ($e instanceof BaseException) {
             $response['message'] = $e->getMessage();
             $response['status']  = $e->getStatusCode();
+        } else if ($e instanceof ValidationException) {
+            $response['message'] = $e->getMessage();
+            $response['status']  = $e->getStatusCode();
+            $response['error']   = $e->getValidationErrors();
         }
         
-        return new JsonResponse(['error' => $response], $response['status']);
+        return new JsonResponse($response, $response['status']);
     }
 
     public function renderForConsole($output, Exception $e) {}
