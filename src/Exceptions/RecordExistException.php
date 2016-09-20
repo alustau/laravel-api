@@ -7,7 +7,7 @@ namespace Alustau\API\Exceptions;
  *
  * @author alustau
  */
-class ValidationException extends Exception
+class RecordExistException extends Exception
 {
      /**
       * Http code of exception
@@ -23,13 +23,11 @@ class ValidationException extends Exception
      * @param  string $message
      * @return void
      */
-    public function __construct(array $errors, $message = null)
+    public function __construct($message = null)
     {
         if (!$message) {
-            $message = "Os parametros estão inválidos.";
+            $message = "Este registro já existe.";
         }
-
-        $this->validationErrors = $errors;
 
         parent::__construct($message, $this->getStatusCode());
     }

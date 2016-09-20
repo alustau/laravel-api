@@ -23,7 +23,7 @@ class DataNotFoundException extends Exception
     public function __construct($message = null)
     {
         if (!$message) {
-            $message = 'The results of given data was not found';
+            $message = 'Nenhum dado encontrado.';
         }
         
         parent::__construct($message, $this->getStatusCode());
