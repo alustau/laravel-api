@@ -41,13 +41,13 @@ class Handler implements ExceptionHandler
         } else if ($e instanceof ModelNotFoundException) {
             $response['message'] = Response::$statusTexts[Response::HTTP_NOT_FOUND];
             $response['status'] = Response::HTTP_NOT_FOUND;
-        } else if ($e instanceof BaseException) {
-            $response['message'] = $e->getMessage();
-            $response['status']  = $e->getStatusCode();
         } else if ($e instanceof ValidationException) {
             $response['message'] = $e->getMessage();
             $response['status']  = $e->getStatusCode();
             $response['error']   = $e->getValidationErrors();
+        } else if ($e instanceof BaseException) {
+            $response['message'] = $e->getMessage();
+            $response['status']  = $e->getStatusCode();
         }
         
         return new JsonResponse($response, $response['status']);
