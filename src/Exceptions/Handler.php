@@ -45,6 +45,9 @@ class Handler implements ExceptionHandler
             $response['message'] = $e->getMessage();
             $response['status']  = $e->getStatusCode();
             $response['error']   = $e->getValidationErrors();
+        } else if ($e instanceof \PDOException) {
+            $response['message'] = $e->getMessage();
+            $response['status']  = 400;
         } else if ($e instanceof BaseException) {
             $response['message'] = $e->getMessage();
             $response['status']  = $e->getStatusCode();
