@@ -8,6 +8,7 @@
 
 namespace Alustau\API;
 
+use Alustau\API\Middlewares\ResponseMiddleware;
 use Illuminate\Support\ServiceProvider;
 use Alustau\API\Exceptions\Handler;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -29,7 +30,7 @@ class ApiServiceProvider extends ServiceProvider
     protected function registerMiddlewares()
     {
         $this->app->middleware([
-            Handler::class
+            ResponseMiddleware::class
         ]);
     }
 }

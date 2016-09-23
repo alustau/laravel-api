@@ -32,7 +32,7 @@ class Handler implements ExceptionHandler
     {
         $response = [
             'message' => (string) $e->getMessage(),
-            'status'  => 400
+            'status'  => (int) $e->getCode()
         ];
         
         if ($e instanceof HttpException) {

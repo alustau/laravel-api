@@ -27,6 +27,6 @@ class ResponseMiddleware
             );
         }
 
-        return $next($request);
+        return $response;
     }
 }
