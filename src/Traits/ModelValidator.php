@@ -4,6 +4,7 @@ namespace Alustau\API\Traits;
 use Illuminate\Support\Facades\Validator;
 use Alustau\API\Exceptions\ValidationException;
 
+
 /**
  * Class ModelValidator
  * @package Alustau\API\Traits
@@ -13,6 +14,7 @@ trait ModelValidator
     /**
      * @return mixed
      */
+
     public static function getRulesMsgs()
     {
         return (new static)->getRulesMessages();
@@ -97,11 +99,12 @@ trait ModelValidator
      * @param $data
      * @return mixed
      */
+
     public function isValid($data)
     {
         return Validator::make($data, $this->getRules(), $this->getRulesMessages());
     }
-
+    
     /**
      * @param array $data
      * @return bool
