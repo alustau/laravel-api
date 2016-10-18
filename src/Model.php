@@ -33,6 +33,39 @@ abstract class Model
     }
 
     /**
+     * @return EloquentModel
+     */
+    public function getModel()
+    {
+        return $this->model;
+    }
+
+    /**
+     * @param EloquentModel $model
+     * @return EloquentModel
+     */
+    public function setModel(EloquentModel $model)
+    {
+        return $this->model = $model;
+    }
+
+    /**
+     * @param $id
+     * @param array $columns
+     * @return Model
+     */
+    public static function find($id, $columns = ['*'])
+    {
+        $instance = static::instance();
+
+        $model = $instance->model->findOrFail($id, $columns);
+
+        $instance->setModel($model);
+
+        return $instance;
+    }
+
+    /**
      * @return static
      */
     public static function instance()
@@ -50,5 +83,24 @@ abstract class Model
         $instance = static::instance()->model;
 
         return call_user_func_array([$instance, $method], $parameters);
+    }
+
+    /**
+     * @param $method
+     * @param $parameters
+     * @return mixed
+     */
+    public function __call($method, $parameters)
+    {
+        return call_user_func_array([$this->model, $method], $parameters);
+    }
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function __get($name)
+    {
+        return $this->getModel()->$name;
     }
 }
