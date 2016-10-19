@@ -102,9 +102,15 @@ trait ModelValidator
 
     public function isValid($data)
     {
-        return Validator::make($data, $this->getRules(), $this->getRulesMessages());
+        $rules = $this->getRulesMessages();
+
+        return Validator::make(
+            $data,
+            $this->getRules(),
+            $rules ? $rules : []
+        );
     }
-    
+
     /**
      * @param array $data
      * @return bool
@@ -112,11 +118,7 @@ trait ModelValidator
      */
     public function validOrFail(array $data)
     {
-        $validation = Validator::make(
-            $data,
-            $this->getRules(),
-            $this->getRulesMessages()
-        );
+        $validation = $this->isValid($data);
 
         if ($validation->fails()) {
             throw new ValidationException($validation->errors()->toArray());
