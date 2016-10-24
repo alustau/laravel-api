@@ -18,8 +18,8 @@ class ResponseMiddleware
         $response = $next($request);
         $data     = $response->getContent();
 
-        if ($response->headers->get('content-type') == 'application/json' &&
-            $response->getStatusCode() === 200)
+        if (($response->headers->get('content-type') == 'application/json') &&
+            ($response->getStatusCode() === 200 || $response->getStatusCode() === 201))
         {
             return response()->json(
                 ['data' => json_decode($data)],
