@@ -1,7 +1,7 @@
 <?php
 namespace Alustau\API\Exceptions;
 
-use Exception;
+use Exception as PhpExcpetion;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -19,7 +19,7 @@ class Handler implements ExceptionHandler
      * @param  \Exception  $e
      * @return void
      */
-    public function report(Exception $e) {}
+    public function report(PhpExcpetion $e) {}
 
     /**
      * Render an exception into an HTTP response.
@@ -28,7 +28,7 @@ class Handler implements ExceptionHandler
      * @param  \Exception  $e
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $e)
+    public function render($request, PhpExcpetion $e)
     {
         $response = [
             'message' => (string) $e->getMessage(),
@@ -56,5 +56,5 @@ class Handler implements ExceptionHandler
         return new JsonResponse($response, $response['status']);
     }
 
-    public function renderForConsole($output, Exception $e) {}
+    public function renderForConsole($output, PhpExcpetion $e) {}
 }
