@@ -8,6 +8,7 @@ use Illuminate\Contracts\Debug\ExceptionHandler;
 use Alustau\API\Exceptions\Exception as BaseException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\Console\Application as ConsoleApplication;
 
 class Handler implements ExceptionHandler
 {
@@ -56,5 +57,8 @@ class Handler implements ExceptionHandler
         return new JsonResponse($response, $response['status']);
     }
 
-    public function renderForConsole($output, PhpExcpetion $e) {}
+    public function renderForConsole($output, PhpExcpetion $e) 
+    {
+        (new ConsoleApplication)->renderException($e, $output);
+    }
 }
