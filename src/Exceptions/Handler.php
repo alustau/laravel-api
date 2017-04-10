@@ -32,8 +32,8 @@ class Handler implements ExceptionHandler
     public function render($request, PhpExcpetion $e)
     {
         $response = [
-            'message' => (string) $e->getMessage(),
-            'status'  => (int) $e->getCode()
+            'message' => $e->getMessage(),
+            'status'  => 500
         ];
         
         if ($e instanceof HttpException) {
